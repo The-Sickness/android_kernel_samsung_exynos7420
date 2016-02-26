@@ -193,6 +193,10 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
 			key->type->destroy)
 				key->type->destroy(key);
 
+		    !test_bit(KEY_FLAG_NEGATIVE, &key->flags) &&
+		    key->type->destroy)
+			key->type->destroy(key);
+
 		security_key_free(key);
 
 		/* deal with the user's key tracking and quota */

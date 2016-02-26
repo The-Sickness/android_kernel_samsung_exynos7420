@@ -137,6 +137,7 @@ void unix_inflight(struct user_struct *user, struct file *fp)
 			BUG_ON(list_empty(&u->link));
 		}
 		unix_tot_inflight++;
+
 		user->unix_inflight++;
 	}
 	fp->f_cred->user->unix_inflight++;
@@ -156,6 +157,7 @@ void unix_notinflight(struct user_struct *user, struct file *fp)
 			list_del_init(&u->link);
 		unix_tot_inflight--;
 		user->unix_inflight--;
+
 	}
 	fp->f_cred->user->unix_inflight--;
 	spin_unlock(&unix_gc_lock);
